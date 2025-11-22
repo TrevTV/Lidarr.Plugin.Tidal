@@ -17,15 +17,15 @@ env:
   # Disable sending usage data to Microsoft
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   PLUGIN_NAME: Lidarr.Plugin.Tidal
-  PLUGIN_VERSION: 10.0.1.${{ github.run_number }}
-  MINIMUM_LIDARR_VERSION: 2.13.0.4664
-  DOTNET_VERSION: 8.0.404
+  PLUGIN_VERSION: 10.1.0.${{ github.run_number }}
+  MINIMUM_LIDARR_VERSION: 3.0.0.4855
+  DOTNET_VERSION: 8.0.405
 
 jobs:
   build:
     strategy:
       matrix:
-        framework: [ net6.0 ]
+        framework: [ net8.0 ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.PLUGIN_NAME }}.${{ matrix.framework }}
-          path: ./_plugins/net6.0/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.*
+          path: ./_plugins/net8.0/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.*
       - name: Generate Changelog
         if: github.ref == 'refs/heads/main'
         run: |
@@ -71,7 +71,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           sudo apt update && sudo apt install -y p7zip-full
-          7z a -tzip ${{ env.PLUGIN_NAME }}.net6.0.zip ./_plugins/net6.0/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.*
+          7z a -tzip ${{ env.PLUGIN_NAME }}.net8.0.zip ./_plugins/net8.0/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.*
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
@@ -82,4 +82,4 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            ${{ env.PLUGIN_NAME }}.net6.0.zip
+            ${{ env.PLUGIN_NAME }}.net8.0.zip
