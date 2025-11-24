@@ -8,7 +8,7 @@ This requires your Lidarr setup to be using the `plugins` branch. My docker-comp
     image: ghcr.io/hotio/lidarr:pr-plugins
     container_name: lidarr
     environment:
-      - PUID:100
+      - PUID:1000
       - PGID:1001
       - TZ:Etc/UTC
     volumes:
