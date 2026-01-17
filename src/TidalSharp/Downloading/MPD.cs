@@ -465,7 +465,7 @@ internal class Representation : RepresentationBase
 internal class AdaptationSet : RepresentationBase
 {
     public uint? Id { get; set; }
-    public uint? Group { get; set; }
+    public string? Group { get; set; }
     public string? Lang { get; set; }
     public string? Label { get; set; }
     public string? ContentType { get; set; }
@@ -500,7 +500,7 @@ internal class AdaptationSet : RepresentationBase
         base.Parse(node);
 
         Id = node.GetAttributeValue<uint>("id");
-        Group = node.GetAttributeValue<uint>("group");
+        Group = node.GetAttributeValue<string>("group");
         Lang = node.GetAttributeValue<string>("lang");
         Label = node.GetAttributeValue<string>("label");
         ContentType = node.GetAttributeValue<string>("contentType");
